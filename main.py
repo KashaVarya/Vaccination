@@ -80,11 +80,11 @@ def main():
         "y": [1, 0, 0, 1],
     }
 
-    c1 = C45("../data/iris/iris.data", "../data/iris/iris.names")
-    c1.fetchData()
-    c1.preprocessData()
-    c1.generateTree()
-    c1.printTree()
+    c1 = C45("./data/iris/iris.data", "./data/iris/iris.names")
+    c1.fetch_data()
+    c1.preprocess_data()
+    c1.generate_tree()
+    c1.print_tree()
 
 
 if __name__ == "__main__":
