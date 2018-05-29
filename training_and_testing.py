@@ -9,17 +9,17 @@ def training_and_testing():
     dataset = DataSet("")
 
     # Load data set
-    # with open("data.csv") as f:
-    #    dataset.rows = [tuple(line) for line in csv.reader(f, delimiter=",")]
-    # print "Number of records: %d" % len(dataset.rows)
+    filename = "data/Predictors_ver.csv"
+    with open(filename) as f:
+        dataset.rows = [tuple(line) for line in csv.reader(f, delimiter=",")]
+    print("Number of records: %d" % len(dataset.rows))
 
-    f = open("data/data.csv")
-    original_file = f.read()
-    rowsplit_data = original_file.splitlines()
-    dataset.rows = [rows.split(',') for rows in rowsplit_data]
+    # f = open("data/data.csv")
+    # original_file = f.read()
+    # rowsplit_data = original_file.splitlines()
+    # dataset.rows = [rows.split(',') for rows in rowsplit_data]
 
     dataset.attributes = dataset.rows.pop(0)
-    print(dataset.attributes)
 
     # this is used to generalize the code for other datasets.
     # true indicates numeric data. false in nominal data
@@ -84,11 +84,11 @@ def training_and_testing():
         del root
 
     mean_accuracy = math.fsum(accuracy) / 10
-    print("Accuracy  %f " % mean_accuracy)
-    print("Took %f secs" % (time.clock() - start))
+    print("\nTotal accuracy  %f " % mean_accuracy)
+    print("\nTook %f secs" % (time.clock() - start))
     # Writing results to a file (DO NOT CHANGE)
     f = open("result.txt", "w")
-    f.write("accuracy: %.4f" % mean_accuracy)
+    f.write("Accuracy: %.4f" % mean_accuracy)
     f.close()
 
 
