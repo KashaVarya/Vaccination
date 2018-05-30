@@ -257,11 +257,11 @@ class DecisionTreeNode:
             return new_score
 
     # Final evaluation of the data
-    def get_classification(self, example, class_col_index):
+    def get_classification(self, example):
         if self.is_leaf_node:
             return self.classification
         else:
             if example[self.attribute_split_index] >= self.attribute_split_value:
-                return self.left_child.get_classification(example, class_col_index)
+                return self.left_child.get_classification(example)
             else:
-                return self.right_child.get_classification(example, class_col_index)
+                return self.right_child.get_classification(example)
