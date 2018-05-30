@@ -1,5 +1,6 @@
 import csv
-from DecisionTreeClassifier import DataSet, DecisionTreeNode
+from DataSet import DataSet
+from DecisionTreeNode import DecisionTreeNode
 
 
 def requests():
