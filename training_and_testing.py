@@ -1,34 +1,13 @@
 import copy
 import time
 import math
-import csv
-from DataSet import DataSet
 from DecisionTreeNode import DecisionTreeNode
+from prepare_data import prepare_data
 
 
 def training_and_testing():
-    dataset = DataSet("")
-
-    # Load data set
-    filename = "data/Predictors_ver.csv"
-    with open(filename) as f:
-        dataset.rows = [tuple(line) for line in csv.reader(f, delimiter=",")]
+    dataset = prepare_data("data/Predictors_ver.csv", 83)
     print("Number of records: %d" % len(dataset.rows))
-
-    dataset.attributes = dataset.rows.pop(0)
-
-    # this is used to generalize the code for other datasets.
-    # true indicates numeric data. false in nominal data
-    # example: dataset.attribute_types = ['false', 'true', 'false', 'false', 'true', 'true', 'false']
-    n = 83
-    dataset.attribute_types = ['false' for _ in range(n)]
-    dataset.classifier = dataset.attributes[-1]
-
-    # find index of classifier
-    dataset.class_col_index = dataset.attributes.index(dataset.classifier)
-
-    # preprocessing the dataset
-    dataset.preprocessing()
 
     training_set = copy.deepcopy(dataset)
     training_set.rows = []

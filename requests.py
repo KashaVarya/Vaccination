@@ -1,42 +1,14 @@
-import csv
-from DataSet import DataSet
 from DecisionTreeNode import DecisionTreeNode
+from prepare_data import prepare_data
 
 
 def requests():
-    data_set = DataSet("")
-    test_set = DataSet("")
+    data_set = prepare_data("data/Predictors_ver.csv", 83)  # prepare general data
+    test_set = prepare_data("data/Test.csv", 82)  # prepare test data
     name_set = []
-
-    filename_data = "data/Predictors_ver.csv"  # file with general data
-    filename_test = "data/Test.csv"  # file with test data
-    n = 83  # number of attributes
-
-    # Load data set
-    with open(filename_data) as f1:
-        data_set.rows = [tuple(line) for line in csv.reader(f1, delimiter=",")]
-    with open(filename_test) as f2:
-        test_set.rows = [line for line in csv.reader(f2, delimiter=",")]
 
     for row in test_set.rows:
         name_set.append(row.pop(0))
-
-    data_set.attributes = data_set.rows.pop(0)
-    test_set.attributes = test_set.rows.pop(0)
-
-    # this is used to generalize the code for other datasets.
-    # true indicates numeric data. false in nominal data
-    # example: data_set.attribute_types = ['false', 'true', 'false', 'false', 'true', 'true', 'false']
-    data_set.attribute_types = ['false' for _ in range(n)]
-    test_set.attribute_types = ['false' for _ in range(n - 1)]
-    data_set.classifier = data_set.attributes[-1]
-
-    # find index of classifier
-    data_set.class_col_index = data_set.attributes.index(data_set.classifier)
-
-    # preprocessing the data_set
-    data_set.preprocessing()
-    test_set.preprocessing()
 
     root = DecisionTreeNode(None)
     root = root.compute_decision_tree(data_set, None)
@@ -48,8 +20,8 @@ def requests():
 
     del root
 
-    for i in range(1, len(name_set)):
-        if results[i - 1] == 1:
+    for i in range(len(name_set)):
+        if results[i] == 1:
             print("{} - эпизодически болеющий ребенок, в проведении инвазивных исследований нет необходимости.".format(
                 name_set[i]))
         else:
